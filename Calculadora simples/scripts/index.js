@@ -1,10 +1,12 @@
 const tela = document.querySelector('div#tela')
+const sinais = ['x', '/', '+', '-']
 
 let coden = 0 // indica em qual numero esta sendo inserido as informações, codigo do num
 let n = ['',''] // numeros
 let op = 0 // qual tipo de operação a ser realizada
 let mem = '' // oq vai aparecerendo na tela /memoria
 let trava = 0 
+
 function calc(botao){
     if(trava == 1){
         if(botao == 'C'){ // reseta a calc
@@ -26,8 +28,14 @@ function calc(botao){
                 op = 0
 
             }else if(botao == 'c'){ // corrige
+                if(coden == 1 && (n[coden]).length==0){
+                    op = 0
+                    coden = 0
+                }
+                if(mem[(mem.length-1)] == n[coden][(n[coden].length-1)]){
+                    n[coden] = (n[coden]).slice(0, ((n[coden]).length-1))
+                }
                 mem = mem.slice(0, (mem.length-1)) //string - ultimo elemento
-                n[coden] = (n[coden]).slice(0, ((n[coden]).length-1))
 
             }else{
 
@@ -58,9 +66,6 @@ function calc(botao){
 
 function add(a){ // passa info pra tela
 
-    console.log(coden)
-
-    const sinais = ['x', '/', '+', '-']
     let ret = 1
 
     if(n[coden].length == 0 && a == '-'){
@@ -70,18 +75,18 @@ function add(a){ // passa info pra tela
 
     }else if(sinais.indexOf(a) != -1){
         if((a != '-' && (sinais.indexOf(mem[mem.length-1]) != -1)) || (mem[mem.length-1] == '+' && a == '-') ||
-            (mem[mem.length-1] == a)){
+        (mem[mem.length-1] == a)){
             mem = mem.slice(0, (mem.length-1)) // tratamento de inserção de sinais seguidos
             if(op!=0) op = (sinais.indexOf(a)+1)
             ret = 0
 
         }else if(n[coden].length == 0){
             n[coden] = '0' 
-            mem = n[coden]
+            mem += n[coden]
             
         }
         mem+=a  
-        coden = 1
+        if(n[0] != '-') coden = 1
         
     }else{
         n[coden] += (a)
@@ -99,7 +104,6 @@ function calcula(c){
         if(n[1] == '') n[1] = 0
         
         const result = ['', 'x', '/','+','-'] 
-
         switch (op){
             case 1:
                 n[0] = Number(n[0])*Number(n[1])
@@ -121,9 +125,17 @@ function calcula(c){
                 console
                 n[0] = Number(n[0])-Number(n[1])
                 break
-        }    
+        }
+
         if (c == 0) coden = 0
         else coden = 1 // variavel para setar em qual numero vamos mexer
+
+        if(isNaN(n[0]) || (sinais.indexOf(mem[0]) != -1 && mem[0] != '-')){
+            trava = 1
+            mem = 'ERRO'
+            alert('Erro na expressão')
+            return
+        }
 
         n[1] = '' // reseta o segundo número
         n[0] = n[0].toFixed(2)
