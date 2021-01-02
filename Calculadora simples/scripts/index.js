@@ -69,19 +69,19 @@ function add(a){ // passa info pra tela
         ret = 0
 
     }else if(sinais.indexOf(a) != -1){
-        if(n[coden].length == 0){
-            n[coden] = '0' 
-            mem = n[coden]
-            
-        }else if( (a != '-' && (sinais.indexOf(mem[mem.length-1]) != -1)) || (mem[mem.length-1] == '+' && a == '-') ||
+        if((a != '-' && (sinais.indexOf(mem[mem.length-1]) != -1)) || (mem[mem.length-1] == '+' && a == '-') ||
             (mem[mem.length-1] == a)){
             mem = mem.slice(0, (mem.length-1)) // tratamento de inserção de sinais seguidos
             if(op!=0) op = (sinais.indexOf(a)+1)
             ret = 0
+
+        }else if(n[coden].length == 0){
+            n[coden] = '0' 
+            mem = n[coden]
+            
         }
         mem+=a  
         coden = 1
-        
         
     }else{
         n[coden] += (a)
