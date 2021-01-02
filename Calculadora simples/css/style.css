@@ -1,0 +1,47 @@
+p{margin: 0px; padding: 0px}
+body{
+    text-align: center;
+    color: rgb(0, 0, 0);
+    background-color: rgb(14, 12, 139);
+    text-align: center;
+}
+
+section{
+    margin: auto;
+    padding: 20px;
+    border-radius: 8%;
+    width: 310px;
+    height: 600px;
+    background-color: rgb(143, 136, 136);
+}
+
+div#tela{
+    background-color: rgb(255, 255, 255);
+    line-height: 75px;
+    text-align: right;
+    height: 75px;
+    margin: 10px;
+}
+
+input[type='button']{
+    margin-bottom: 16px;
+    height: 90px;
+    width: 60px;	
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px;
+    font-size: 40px;
+    background-color: black;
+    color: rgb(255, 136, 0);
+}
+
+input[type='button']:active{
+    box-shadow: 0px 0px 0px;
+}
+p#b_sinal{
+    float: right;
+    margin: 0px 20px 0px 0px;
+}
+input.b_esp{
+    width:auto;
+    height: auto;
+}
