@@ -106,8 +106,8 @@ function calcula(c){
                 break
             case 2:
                 if(n[1]==0){
-                    mem = 'ERROR: div por 0'
-                    alert('Não é possivel dividir por 0 !!')
+                    mem = 'ERRO:div/0'
+                    alert('Não é possivel dividir por 0!!')
                     tela.innerHTML = mem
                     trava = 1
                     return
