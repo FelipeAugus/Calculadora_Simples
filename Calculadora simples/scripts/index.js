@@ -2,10 +2,11 @@ const tela = document.querySelector('div#tela')
 const sinais = ['x', '/', '+', '-']
 
 let coden = 0 // indica em qual numero esta sendo inserido as informações, codigo do num
+let pn = [false, false] //se número já tem ponto
 let n = ['',''] // numeros
 let op = 0 // qual tipo de operação a ser realizada
 let mem = '' // oq vai aparecerendo na tela /memoria
-let trava = 0 
+let trava = 0
 
 function calc(botao){
     if(trava == 1){
@@ -18,12 +19,12 @@ function calc(botao){
             trava = 0
         }
     }else{
-        if(typeof(botao) == 'string'){ 
+        if(typeof(botao) == 'string' && botao != '.'){ 
             
             if(botao == 'C'){ // reseta a calc
                 mem = ''
-                n[0] = ''
-                n[1] = ''
+                n = ['', '']
+                pn = [false, false]
                 coden = 0
                 op = 0
 
@@ -32,9 +33,14 @@ function calc(botao){
                     op = 0
                     coden = 0
                 }
+
                 if(mem[(mem.length-1)] == n[coden][(n[coden].length-1)]){
+                    if(n[coden][(n[coden].length-1)]=='.'){
+                        pn[coden] = false 
+                    }
                     n[coden] = (n[coden]).slice(0, ((n[coden]).length-1))
                 }
+
                 mem = mem.slice(0, (mem.length-1)) //string - ultimo elemento
 
             }else{
@@ -57,7 +63,14 @@ function calc(botao){
                 }
             }
         }else{ // numeros
-            add(botao)
+            if(botao == '.'){ // se for ponto
+                if(pn[coden] == false){ // se o número ainda não tem ponto
+                    add(botao) // adiciona o ponto
+                    pn[coden] = true 
+                }
+            }else{
+                add(botao) // se for numero adiciona o numero
+            }
         }
         
     }
@@ -68,12 +81,12 @@ function add(a){ // passa info pra tela
 
     let ret = 1
 
-    if(n[coden].length == 0 && a == '-'){
+    if(n[coden].length == 0 && a == '-'){ //sinal menos no inicio do numero
         n[coden] += (a)
         mem += a
         ret = 0
 
-    }else if(sinais.indexOf(a) != -1){
+    }else if(sinais.indexOf(a) != -1){ //sinais no geral
         if((a != '-' && (sinais.indexOf(mem[mem.length-1]) != -1)) || (mem[mem.length-1] == '+' && a == '-') ||
         (mem[mem.length-1] == a)){
             mem = mem.slice(0, (mem.length-1)) // tratamento de inserção de sinais seguidos
@@ -88,7 +101,7 @@ function add(a){ // passa info pra tela
         mem+=a  
         if(n[0] != '-') coden = 1
         
-    }else{
+    }else{ //numeros e ponto
         n[coden] += (a)
         mem += a
     }
@@ -138,7 +151,9 @@ function calcula(c){
         }
 
         n[1] = '' // reseta o segundo número
+        pn[1] = false
         n[0] = n[0].toFixed(2)
+        pn[0] = true 
         mem = `${n[0]}${result[c]}` //printa o resultado na tela
         op = c // atualiza a variavel de controle
     }
