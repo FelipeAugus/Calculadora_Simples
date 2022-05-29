@@ -6,4 +6,4 @@
 ▫ ➕ ➖ Calculadora com as funções básicas de soma, subtração, multiplicação e divisão.  ✖ ➗ ▪ 
 
 Github page:
-+ = [Calculadora simples](https://felipeaugus.github.io/CalculadoraSimples/) 
++ = [Calculadora simples](https://felipeaugus.github.io/Calculadora_Simples/) 
